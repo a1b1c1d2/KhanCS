@@ -23,3 +23,6 @@ To run SQL in the browser, we make use of these technologies:
 - [asm.js(Opens in a new window)](http://asmjs.org/)
 - [Emscripten(Opens in a new window)](https://github.com/kripken/emscripten)
 - [sql.js](https://github.com/kripken/sql.js/)
+
+https://hourofcode.com/us/zh#join
+
