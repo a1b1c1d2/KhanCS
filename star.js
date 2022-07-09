@@ -1,6 +1,6 @@
-var stars = [];
-var t = 0;
-var shootStar = function(xPos,yPos){
+var stars = [];//多个流星
+var t = 0;//延时器
+var shootStar = function(xPos,yPos){//每个流星的属性
     this.x = xPos;
     this.y = yPos;
     this.oldX = xPos;
@@ -9,19 +9,27 @@ var shootStar = function(xPos,yPos){
 };
 
 draw = function() {
+    //1.背景
     background(19,0,82);
+
+    //6.流星群不再为空
     fill(255,255,255);
     noStroke();
     for(var i = 0;i < stars.length;i++){
+        //7.画出流星初始位置
         ellipse(stars[i].x,stars[i].y,stars[i].size,stars[i].size);
+        //8.流星轨迹记录
+        //m每个流星初始大小和不透明度
         var size = stars[i].size;
         var a = 100;
+        //10.画出前一次移动轨迹，直至初始化位置，同时增加以前位置透明度并缩小
         for(var j = stars[i].x,k = stars[i].y;j< stars[i].oldX, k > stars[i].oldY;j++,k--){
             a -= 2;
             fill(255, 255, 255,a);
             size  -= 0.2;
             ellipse(j,k,size,size);
         }
+        //9.流星下一间隔位置和速度
         stars[i].x -= 1;
         stars[i].y += 1;
         
@@ -29,30 +37,43 @@ draw = function() {
     if(stars.length > 50){
         stars.shift();
     }
+
+    // 2.间隔添加流星群
     if (t % 40 === 20){
+        //右上
         stars.push(new shootStar(random(0,500),random(-100,0)));
+        //右中
         stars.push(new shootStar(random(400,500),random(200,350)));
     }
-    t ++;
-    fill(0,4,84,20);
-    rect(0,0,400,400);
+
     
+
+    //添加蒙版
+    //fill(0,4,84,20);
+    //rect(0,0,400,400);
+
+    //5.闪烁的背景
     if(t % 60 === 0){
         for(var i = 0;i < 5;i++){
-        stroke(255,255,255);
-        strokeWeight(5);
-        point(random(width),random(height));
-        
+            stroke(255,255,255);
+            strokeWeight(5);
+            point(random(width),random(height));
         } 
     }
+
+    t ++;
     
+    //3.画出六个圈
     noStroke();
     for(var i = 0;i < 6;i++){
         fill(192, 191,214,10);
         ellipse(200,400+i*23,400,400);
     }
+
+    //4.画出三个起伏的山峰
     fill(51,51,51);
     rect(0,350,400,50);
+
     beginShape();
     vertex(2,341);
     vertex(57,320);
@@ -112,7 +133,6 @@ draw = function() {
     vertex(0,401);
     vertex(0,393);   
     endShape();
-    
 };
 
 
